@@ -1,0 +1,43 @@
+# Variables de entorno (Credenciales) - NUNCA subir a Git
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+
+# Archivos temporales de Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.coverage
+
+# Entornos virtuales
+venv/
+.venv/
+env/
+.env_venv/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+.jupyter/
+
+# Datos locales (evita subir CSVs grandes o datos sensibles)
+data/
+*.csv
+*.xlsx
+*.xls
+*.db
+*.sqlite
+*.sqlite3
+
+# Archivos de IDEs
+.vscode/
+.idea/
+
+# Archivos de sistema operativo
+.DS_Store
+Thumbs.db
+Desktop.ini
