@@ -1,10 +1,10 @@
--- schema.sql: Define la estructura de la base de datos
--- Compatible con PostgreSQL 18+
+-- schema.sql: Defines the database structure
+-- PostgreSQL 18+ compatible
 
--- Eliminar tabla si existe para permitir re-creación limpia
+-- Drop table if exists to allow a clean re-creation
 DROP TABLE IF EXISTS ventas;
 
--- Crear tabla principal de ventas
+-- Main sales table
 CREATE TABLE ventas (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     fecha DATE NOT NULL,
@@ -14,6 +14,6 @@ CREATE TABLE ventas (
     cantidad INT NOT NULL CHECK (cantidad > 0)
 );
 
--- Índices para optimizar consultas futuras
+-- Indexes to optimize future queries
 CREATE INDEX idx_ventas_categoria ON ventas(categoria);
 CREATE INDEX idx_ventas_fecha ON ventas(fecha);

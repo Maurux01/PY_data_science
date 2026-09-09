@@ -1,34 +1,34 @@
 # 02 — Web Scraping | Books to Scrape → Neon
 
-Scraper ético con **Playwright (Chromium headless)** que extrae libros de `books.toscrape.com` y los carga a **PostgreSQL Serverless (Neon)** en la tabla `scraped_books`.
+Ethical scraper built with **Playwright (headless Chromium)** that extracts books from `books.toscrape.com` and loads them into **PostgreSQL Serverless (Neon)** in the `scraped_books` table.
 
-## Qué hace `books_scrapper.py`
+## What `books_scrapper.py` does
 
-1. **Conexión segura a Neon (ruta blindada):**
-   - Resuelve `.env` subiendo 2 niveles desde el script (`Projects/02_web_scraping_/` → raíz `PY_data_science/`).
-   - Falla explícito si no existe `.env` (`FileNotFoundError`) o si falta `DATABASE_URL` (`EnvironmentError`).
-   - Convierte `postgresql://` → `postgresql+psycopg://` (psycopg v3).
+1. **Secure Neon connection (hardened path):**
+   - Resolves `.env` by going 2 levels up from the script (`Projects/02_web_scraping_/` → `PY_data_science/` root).
+   - Fails explicitly if `.env` is missing (`FileNotFoundError`) or `DATABASE_URL` is unset (`EnvironmentError`).
+   - Converts `postgresql://` → `postgresql+psycopg://` (psycopg v3).
 
 2. **Scraper (`scrape_books(max_pages=3)`):**
-   - Itera `https://books.toscrape.com/catalogue/page-{i}.html`.
-   - Por cada `article.product_pod` extrae:
-     - `producto`: `h3 > a[title]` (recortado a 80 chars)
-     - `monto`: `.price_color` limpiado con `re.sub(r'[^\d.]', '', ...)` → `float`
-     - `categoria`: última clase de `p.star-rating` (ej. `Three`, `Five`)
-     - `descripcion`: `title` del rating o `"N/A"` (150 chars)
+   - Iterates `https://books.toscrape.com/catalogue/page-{i}.html`.
+   - For each `article.product_pod` it extracts:
+     - `producto`: `h3 > a[title]` (truncated to 80 chars)
+     - `monto`: `.price_color` cleaned with `re.sub(r'[^\d.]', '', ...)` → `float`
+     - `categoria`: last class of `p.star-rating` (e.g. `Three`, `Five`)
+     - `descripcion`: rating `title` or `"N/A"` (150 chars)
      - `cantidad`: `1`, `fecha`: `2024-01-{i:02d}`
-   - `page.goto(..., wait_until="networkidle", timeout=30000)` + `time.sleep(2)` como rate-limit ético.
-   - `try/except` por página: si una falla, sigue con las demás.
-   - Resultado actual: **~60 libros (3 páginas × 20)**.
+   - `page.goto(..., wait_until="networkidle", timeout=30000)` + `time.sleep(2)` as an ethical rate limit.
+   - `try/except` per page: if one fails, it moves on to the next.
+   - Current result: **~60 books (3 pages × 20)**.
 
-3. **Carga a Neon con tipos correctos:**
-   - Conversión explícita antes del insert (evita `DatatypeMismatch` en Postgres):
+3. **Load into Neon with correct types:**
+   - Explicit conversion before insert (avoids Postgres `DatatypeMismatch`):
      ```python
      df['fecha'] = pd.to_datetime(df['fecha'])
      df['monto'] = df['monto'].astype(float)
      df['cantidad'] = df['cantidad'].astype(int)
      ```
-   - Crea la tabla si no existe:
+   - Creates the table if missing:
      ```sql
      CREATE TABLE IF NOT EXISTS scraped_books (
          id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -40,39 +40,39 @@ Scraper ético con **Playwright (Chromium headless)** que extrae libros de `book
          fecha DATE
      );
      ```
-   - Inserta con `df.to_sql('scraped_books', engine, if_exists='append', index=False)`.
+   - Inserts with `df.to_sql('scraped_books', engine, if_exists='append', index=False)`.
 
-## Estructura
+## Structure
 
 ```
 02_web_scraping_/
-├── books_scrapper.py  # Script principal (conexión + scraper + carga)
+├── books_scrapper.py  # Main script (connection + scraper + load)
 └── README.md
 ```
 
-## Cómo reproducir
+## How to reproduce
 
 ```bash
-# 1. Entorno
+# 1. Environment
 python -m venv .venv
 .venv\Scripts\activate  # Windows
 pip install playwright pandas sqlalchemy psycopg[binary] python-dotenv
 playwright install chromium
 
-# 2. Credencial (NO subir a git, ya está en .gitignore)
-# Crear PY_data_science/.env con:
-# DATABASE_URL=postgresql://usuario:password@ep-xxx.neon.tech/db?sslmode=require
+# 2. Credential (DO NOT commit, already in .gitignore)
+# Create PY_data_science/.env with:
+# DATABASE_URL=postgresql://user:password@ep-xxx.neon.tech/db?sslmode=require
 
-# 3. Ejecutar (desde la raíz del repo)
+# 3. Run (from the repo root)
 python Projects/02_web_scraping_/books_scrapper.py
 ```
 
-## Seguridad
+## Security
 
-- Sin credenciales hardcodeadas, solo `os.getenv("DATABASE_URL")`.
-- `.env` ignorado por `.gitignore` y fuera del historial de git.
-- El sitio objetivo es un sandbox público para scraping (`books.toscrape.com`). Se respeta con `sleep(2)` y `headless=True`.
+- No hardcoded credentials, only `os.getenv("DATABASE_URL")`.
+- `.env` ignored by `.gitignore` and out of git history.
+- The target site is a public scraping sandbox (`books.toscrape.com`). Respected with `sleep(2)` and `headless=True`.
 
-## Dependencias clave
+## Key dependencies
 
 `playwright`, `pandas`, `sqlalchemy`, `psycopg[binary]`, `python-dotenv`

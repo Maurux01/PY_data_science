@@ -1,12 +1,12 @@
-// Portfolio maurux01 — interacciones mínimas, sin dependencias.
+// Portfolio maurux01 — minimal interactions, no dependencies.
 (function () {
   "use strict";
 
-  // Año dinámico en el footer
+  // Dynamic year in the footer
   var yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
-  // Animar barras de skills al entrar en viewport
+  // Animate skill bars when they enter the viewport
   var bars = document.querySelectorAll(".bar i[data-w]");
   function fillBar(el) {
     el.style.width = el.getAttribute("data-w") + "%";
@@ -28,7 +28,7 @@
     bars.forEach(fillBar);
   }
 
-  // Resaltar link de nav según sección visible
+  // Highlight nav link for the visible section
   var links = Array.prototype.slice.call(document.querySelectorAll(".nav-links a"));
   var sections = links
     .map(function (a) { return document.querySelector(a.getAttribute("href")); })
@@ -49,7 +49,7 @@
     sections.forEach(function (s) { navIo.observe(s); });
   }
 
-  // Formulario de contacto: abre el email del visitante con el mensaje prellenado
+  // Contact form: opens the visitor's email client with a prefilled message
   var form = document.getElementById("contactForm");
   var note = document.getElementById("formNote");
   if (form) {
@@ -61,14 +61,14 @@
       var asunto = String(data.get("asunto") || "").trim();
       var mensaje = String(data.get("mensaje") || "").trim();
       if (!nombre || !email || !asunto || !mensaje) {
-        if (note) note.textContent = "Completá todos los campos.";
+        if (note) note.textContent = "Please fill in all fields.";
         return;
       }
       var subject = encodeURIComponent("[Portfolio] " + asunto + " — " + nombre);
       var body = encodeURIComponent(mensaje + "\n\n— " + nombre + " (" + email + ")");
       window.location.href =
         "mailto:mauroinfantefreelancer@gmail.com?subject=" + subject + "&body=" + body;
-      if (note) note.textContent = "Abriendo tu cliente de email para enviar el mensaje...";
+      if (note) note.textContent = "Opening your email client to send the message...";
       form.reset();
     });
   }

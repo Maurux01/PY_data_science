@@ -1,5 +1,5 @@
--- seeds.sql: Pobla la base de datos con datos de prueba
--- Ejecutar DESPUÉS de schema.sql
+-- seeds.sql: Populates the database with sample data
+-- Run AFTER schema.sql
 
 INSERT INTO ventas (fecha, producto, categoria, monto, cantidad) VALUES
 ('2023-10-01', 'Laptop Gamer', 'Computadoras', 1500.00, 2),

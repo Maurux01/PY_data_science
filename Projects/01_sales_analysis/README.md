@@ -1,69 +1,70 @@
-# 01 — Análisis de Ventas | Tienda Tech
+# 01 — Sales Analysis | Tech Store
 
-Proyecto de análisis exploratorio de ventas conectado a **PostgreSQL Serverless (Neon Cloud)**, con visualización estadística en Python.
+Exploratory sales analysis project connected to **PostgreSQL Serverless (Neon Cloud)**, with statistical visualization in Python.
 
-## Qué se hizo
+## What was done
 
-1.  **Conexión segura a la nube (Neon):**
-    *   Se usa `python-dotenv` + `os.getenv("DATABASE_URL")` para leer la credencial desde el `.env` en la raíz del repo.
-    *   No hay contraseñas ni connection strings hardcodeados en el código. Si falta `DATABASE_URL`, el notebook falla con `EnvironmentError` explícito.
-    *   Conexión con `SQLAlchemy + psycopg v3` (`postgresql+psycopg://`).
+1.  **Secure cloud connection (Neon):**
+    *   `python-dotenv` + `os.getenv("DATABASE_URL")` reads the credential from `.env` at the repo root.
+    *   No hardcoded passwords or connection strings. If `DATABASE_URL` is missing, the notebook fails with an explicit `EnvironmentError`.
+    *   Connection via `SQLAlchemy + psycopg v3` (`postgresql+psycopg://`).
 
-2.  **Migración automática desde SQL:**
-    *   `Database/schema.sql`: crea/recrea la tabla `ventas` (id identity PK, fecha, producto, categoria, monto > 0, cantidad > 0) + índices en `categoria` y `fecha`. Compatible PostgreSQL 18+.
-    *   `Database/seeds.sql`: inserta 6 registros de prueba (Laptop Gamer, Mouse, Teclado, Monitor 27", Audífonos).
-    *   El notebook resuelve las rutas con `pathlib.Path.cwd()` para que funcione tanto si el kernel inicia en `01_sales_analysis/` como en la raíz, y verifica `exists()` antes de ejecutar.
-    *   Usa `conn.commit()` obligatorio en psycopg v3 y verifica con `SELECT COUNT(*)`.
+2.  **Automatic migration from SQL:**
+    *   `Database/schema.sql`: creates/recreates the `ventas` table (identity PK id, fecha, producto, categoria, monto > 0, cantidad > 0) + indexes on `categoria` and `fecha`. PostgreSQL 18+ compatible.
+    *   `Database/seeds.sql`: inserts 6 sample rows (Laptop Gamer, Mouse, Teclado, Monitor 27", Audífonos).
+    *   The notebook resolves paths with `pathlib.Path.cwd()` so it works whether the kernel starts in `01_sales_analysis/` or at the root, and checks `exists()` before running.
+    *   Uses mandatory `conn.commit()` on psycopg v3 and verifies with `SELECT COUNT(*)`.
 
-3.  **Análisis estadístico con `pandas / numpy / scipy`:**
-    *   Carga con `pd.read_sql("SELECT * FROM ventas", engine)`.
-    *   Calcula `precio_unitario = monto / cantidad`, correlación de Pearson (`scipy.stats.pearsonr`), KDE (`scipy.stats.gaussian_kde`) y Coeficiente de Variación (`std/mean*100`).
-    *   Resultado actual: **CV = 124.8%** (alta dispersión) y **Producto Top Pareto A: Laptop Gamer ($1,500.00)**.
+3.  **Statistical analysis with `pandas / numpy / scipy`:**
+    *   Loads with `pd.read_sql("SELECT * FROM ventas", engine)`.
+    *   Computes `precio_unitario = monto / cantidad`, Pearson correlation (`scipy.stats.pearsonr`), KDE (`scipy.stats.gaussian_kde`) and Coefficient of Variation (`std/mean*100`).
+    *   Current result: **CV = 124.8%** (high dispersion) and **Top Pareto product A: Laptop Gamer ($1,500.00)**.
+    *   Note: with `n=6` the p-value is illustrative only, not statistically significant.
 
-4.  **Visualización (4 paneles con `matplotlib + seaborn`):**
-    *   **ABC / Pareto:** barras de monto por producto + línea de % acumulado.
-    *   **Distribución:** histograma + KDE + media y mediana.
-    *   **Boxplot por categoría:** variabilidad `Computadoras` vs `Accesorios`.
-    *   **Scatter Correlación:** `cantidad` vs `precio_unitario`, tamaño = `monto`, hue = `categoria`, con `r` y `p-value` en el título.
+4.  **Visualization (4 panels with `matplotlib + seaborn`):**
+    *   **ABC / Pareto:** monto bars per product + cumulative % line.
+    *   **Distribution:** histogram + KDE + mean and median.
+    *   **Boxplot by category:** `Computadoras` vs `Accesorios` variability.
+    *   **Correlation scatter:** `cantidad` vs `precio_unitario`, size = `monto`, hue = `categoria`, with `r` and `p-value` in the title.
 
-## Estructura
+## Structure
 
 ```
 01_sales_analysis/
-├── analysis.ipynb   # Notebook principal (conexión + migración + análisis + gráficos)
+├── analysis.ipynb   # Main notebook (connection + migration + analysis + charts)
 ├── Database/
-│   ├── schema.sql   # DDL tabla ventas
-│   └── seeds.sql    # 6 registros de prueba
+│   ├── schema.sql   # ventas table DDL
+│   └── seeds.sql    # 6 sample rows
 └── README.md
 ```
 
-## Cómo reproducir
+## How to reproduce
 
 ```bash
-# 1. Crear entorno
+# 1. Create environment
 python -m venv .venv
 .venv\Scripts\activate  # Windows
 pip install pandas sqlalchemy psycopg[binary] python-dotenv matplotlib seaborn scipy numpy jupyter
 
-# 2. Configurar credencial (NO subir a git, ya está en .gitignore)
-# Crear C:\...\PY_data_science\.env con:
-# DATABASE_URL=postgresql://usuario:password@ep-xxx.neon.tech/db?sslmode=require
+# 2. Set credential (DO NOT commit, already in .gitignore)
+# Create C:\...\PY_data_science\.env with:
+# DATABASE_URL=postgresql://user:password@ep-xxx.neon.tech/db?sslmode=require
 
-# 3. Abrir notebook
+# 3. Open notebook
 jupyter notebook Projects/01_sales_analysis/analysis.ipynb
 ```
 
-## Seguridad
+## Security
 
-*   `.env` ignorado por `.gitignore` y **no** está en el historial de git (verificado con `git log -- .env` vacío).
-*   El código solo referencia `DATABASE_URL` por nombre, nunca imprime su valor.
-*   Recomendación antes de `git add`: en Jupyter hacer `Cell > All Output > Clear` para no subir rutas locales absolutas (`C:\Users\...`) que aparecen en los `print()` de debug.
+*   `.env` ignored by `.gitignore` and **not** in git history (verified with empty `git log -- .env`).
+*   Code only references `DATABASE_URL` by name, never prints its value.
+*   Recommendation before `git add`: in Jupyter run `Cell > All Output > Clear` to avoid pushing local absolute paths (`C:\Users\...`) that appear in debug `print()` output.
 
-## Dependencias clave
+## Key dependencies
 
 `sqlalchemy`, `psycopg`, `python-dotenv`, `pandas`, `numpy`, `scipy`, `matplotlib`, `seaborn`
 
 
-# Preview 
+# Preview
 
 ![01_sales_analysis](../../Assets/01_sales_analysis.png)
