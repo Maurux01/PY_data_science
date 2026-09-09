@@ -1,15 +1,164 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Mauro Infante (maurux01) — Data Analyst & Industrial Engineer. Portfolio: EDA, web scraping/ETL y dashboards BI con Python, SQL y Streamlit." />
+  <title>maurux01 / Mauro Infante — Data Analyst</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div>
+  <header class="nav">
+    <a class="brand" href="#top"><span class="brand-green">MAURUX01</span><span class="brand-sep"> / Mauro Infante</span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn btn-outline btn-sm" href="https://github.com/Maurux01" target="_blank" rel="noopener">GitHub &#8599;</a>
+  </header>
 
-        <h1>Data science portfolio Mauro Infante/maurux01</h1>
-    </div>
+  <main id="top">
+    <!-- 01 / ABOUT -->
+    <section class="hero" id="about">
+      <div class="hero-left">
+        <p class="section-tag">01 / ABOUT</p>
+        <h1>Mauro Infante<br /><span class="green">Data Analyst<br />&amp; Industrial Eng.</span></h1>
+        <p class="lede">Ingeniero industrial que migró al mundo de los datos. Aprendo construyendo proyectos reales y leyendo documentación oficial — sin bootcamps, sin atajos.</p>
+        <p class="badge"><span class="dot"></span>Junior — aprendiendo activamente</p>
+        <div class="stats">
+          <div><strong class="green">3</strong><span>PROYECTOS</span></div>
+          <div><strong class="green">Jr</strong><span>NIVEL</span></div>
+          <div><strong class="green">&infin;</strong><span>CURIOSIDAD</span></div>
+        </div>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#projects">Ver proyectos</a>
+          <a class="btn btn-outline" href="https://www.linkedin.com/in/mauro-infante" target="_blank" rel="noopener">LinkedIn &#8599;</a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="terminal">
+          <div class="term-bar"><span class="c r"></span><span class="c y"></span><span class="c g"></span><span class="term-title">python3 — maurux01</span></div>
+          <pre class="term-body"><code><span class="green">$ python -c "import mauro"</span>
+<span class="green">&gt;&gt;&gt; mauro.role</span>
+'Data Analyst · Industrial Engineer'
+<span class="green">&gt;&gt;&gt; mauro.stack</span>
+['Python', 'SQL', 'Pandas', 'Streamlit', 'Plotly']
+<span class="green">&gt;&gt;&gt; mauro.level</span>
+'junior — learning by building ✓'
+<span class="green">&gt;&gt;&gt;</span> <span class="caret">▌</span></code></pre>
+        </div>
+        <div class="chips">
+          <span>Python</span><span>SQL</span><span>Pandas</span><span>NumPy</span><span>SciPy</span><span>Seaborn</span><span>Plotly</span><span>Streamlit</span><span>Playwright</span><span>PostgreSQL</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 / SKILLS -->
+    <section class="section" id="skills">
+      <p class="section-tag">02 / SKILLS</p>
+      <div class="skills-head">
+        <h2>Stack real</h2>
+        <p>Cada herramienta aprendida construyendo<br />proyectos reales y leyendo documentación oficial.</p>
+      </div>
+      <div class="skills-grid">
+        <div class="card">
+          <h3>ANALYSIS &amp; EDA</h3>
+          <div class="skill"><div class="skill-row"><span>Python / Pandas / NumPy</span><span>85%</span></div><div class="bar"><i data-w="85"></i></div></div>
+          <div class="skill"><div class="skill-row"><span>Matplotlib / Seaborn</span><span>82%</span></div><div class="bar"><i data-w="82"></i></div></div>
+          <div class="skill"><div class="skill-row"><span>SciPy (stats, KDE)</span><span>75%</span></div><div class="bar"><i data-w="75"></i></div></div>
+          <div class="skill"><div class="skill-row"><span>Jupyter Notebooks</span><span>90%</span></div><div class="bar"><i data-w="90"></i></div></div>
+        </div>
+        <div class="card">
+          <h3>DATA &amp; DATABASES</h3>
+          <div class="skill"><div class="skill-row"><span>SQL / PostgreSQL (Neon)</span><span>80%</span></div><div class="bar"><i data-w="80"></i></div></div>
+          <div class="skill"><div class="skill-row"><span>SQLAlchemy + psycopg v3</span><span>75%</span></div><div class="bar"><i data-w="75"></i></div></div>
+          <div class="skill"><div class="skill-row"><span>Web Scraping (Playwright)</span><span>78%</span></div><div class="bar"><i data-w="78"></i></div></div>
+          <div class="skill"><div class="skill-row"><span>ETL Pipelines</span><span>72%</span></div><div class="bar"><i data-w="72"></i></div></div>
+        </div>
+        <div class="card">
+          <h3>VISUALIZATION &amp; TOOLS</h3>
+          <div class="skill"><div class="skill-row"><span>Streamlit</span><span>82%</span></div><div class="bar"><i data-w="82"></i></div></div>
+          <div class="skill"><div class="skill-row"><span>Plotly Express</span><span>80%</span></div><div class="bar"><i data-w="80"></i></div></div>
+          <div class="skill"><div class="skill-row"><span>Git / GitHub</span><span>78%</span></div><div class="bar"><i data-w="78"></i></div></div>
+          <div class="skill"><div class="skill-row"><span>python-dotenv / Secrets</span><span>75%</span></div><div class="bar"><i data-w="75"></i></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 / WORK -->
+    <section class="section" id="projects">
+      <p class="section-tag">03 / WORK</p>
+      <div class="skills-head">
+        <h2>Proyectos reales</h2>
+        <p><a class="repo-link" href="https://github.com/Maurux01/PY_data_science" target="_blank" rel="noopener">Ver repositorio completo &rarr;</a></p>
+      </div>
+      <div class="work-grid">
+        <article class="card work">
+          <img src="../Assets/result_sales_analysis-2.png" alt="Análisis exploratorio de ventas con Pareto y distribuciones" loading="lazy" />
+          <div class="work-body">
+            <div class="work-meta"><span>09 — 2026</span><a class="green" href="https://github.com/Maurux01/PY_data_science/tree/main/Projects/01_sales_analysis" target="_blank" rel="noopener">VER CÓDIGO &rarr;</a></div>
+            <h3>Exploratory Data Analysis</h3>
+            <p>Full EDA pipeline connecting to a serverless PostgreSQL database (Neon). Includes Pearson correlation, Gaussian KDE, coefficient of variation, and publication-ready charts with matplotlib and seaborn.</p>
+            <div class="tags"><span>Python</span><span>Pandas</span><span>SciPy</span><span>Seaborn</span><span>SQLAlchemy</span><span>PostgreSQL</span></div>
+          </div>
+        </article>
+        <article class="card work">
+          <img src="../Assets/result_web_scrapping.png" alt="Pipeline de web scraping y ETL con Playwright" loading="lazy" />
+          <div class="work-body">
+            <div class="work-meta"><span>09 — 2026</span><a class="green" href="https://github.com/Maurux01/PY_data_science/tree/main/Projects/02_web_scraping_" target="_blank" rel="noopener">VER CÓDIGO &rarr;</a></div>
+            <h3>Web Scraping &amp; ETL Pipeline</h3>
+            <p>Headless browser scraping with Playwright (Chromium) and regex cleaning. Appends structured data to PostgreSQL via pandas.to_sql with ethical rate-limiting. Secrets managed with python-dotenv.</p>
+            <div class="tags"><span>Playwright</span><span>Python</span><span>Pandas</span><span>Regex</span><span>PostgreSQL</span><span>psycopg v3</span></div>
+          </div>
+        </article>
+        <article class="card work">
+          <video poster="assets/streamlit_dashboard.png" autoplay muted loop playsinline controls preload="metadata" aria-label="Demo en video del dashboard Streamlit">
+            <source src="assets/streamlit_screenrecord.webm" type="video/webm" />
+            <img src="assets/streamlit_dashboard.png" alt="Dashboard BI interactivo con Streamlit y Plotly" loading="lazy" />
+          </video>
+          <div class="work-body">
+            <div class="work-meta"><span>09 — 2026</span><a class="green" href="https://github.com/Maurux01/PY_data_science/tree/main/Projects/03_streamlit_dashboard" target="_blank" rel="noopener">VER CÓDIGO &rarr;</a></div>
+            <h3>Streamlit Dashboard</h3>
+            <p>Streamlit app with dynamic filters and 300s cache. Visualizes datasets with Plotly Express (bar, histogram, box plots). Deployed on Streamlit Cloud — no server setup needed.</p>
+            <div class="tags"><span>Streamlit</span><span>Plotly Express</span><span>Pandas</span><span>Python</span><span>Streamlit Cloud</span></div>
+          </div>
+        </article>
+      </div>
+      <p class="center-note">Todo el código es público — construido desde cero, sin plantillas.</p>
+    </section>
+
+    <!-- 04 / CONTACT -->
+    <section class="section contact" id="contact">
+      <div class="contact-left">
+        <p class="section-tag">04 / CONTACT</p>
+        <h2>¿Trabajamos<br />con datos?</h2>
+        <p class="lede">Disponible para proyectos freelance de análisis de datos, limpieza de datasets, dashboards interactivos y scraping. Si tenés datos sin procesar, puedo ayudarte.</p>
+        <dl class="contact-lines">
+          <div><dt>EMAIL</dt><dd><a href="mailto:mauroinfantefreelancer@gmail.com">mauroinfantefreelancer@gmail.com</a></dd></div>
+          <div><dt>GITHUB</dt><dd><a href="https://github.com/Maurux01" target="_blank" rel="noopener">github.com/Maurux01</a></dd></div>
+          <div><dt>LINKEDIN</dt><dd><a href="https://www.linkedin.com/in/mauro-infante" target="_blank" rel="noopener">linkedin.com/in/mauro-infante</a></dd></div>
+        </dl>
+      </div>
+      <form class="contact-form" id="contactForm">
+        <div class="form-row">
+          <input type="text" name="nombre" placeholder="Nombre" required autocomplete="name" />
+          <input type="email" name="email" placeholder="Email" required autocomplete="email" />
+        </div>
+        <input type="text" name="asunto" placeholder="Asunto" required />
+        <textarea name="mensaje" rows="5" placeholder="Contame sobre tus datos o proyecto..." required></textarea>
+        <button class="btn btn-primary btn-block" type="submit">Enviar mensaje &rarr;</button>
+        <p class="form-note" id="formNote" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>&copy; <span id="year">2024</span> Mauro Infante · Maurux01</span>
+    <span class="green">Disponible para freelance ✓</span>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
