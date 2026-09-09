@@ -62,3 +62,8 @@ jupyter notebook Projects/01_sales_analysis/analysis.ipynb
 ## Dependencias clave
 
 `sqlalchemy`, `psycopg`, `python-dotenv`, `pandas`, `numpy`, `scipy`, `matplotlib`, `seaborn`
+
+
+# Preview 
+
+![01_sales_analysis](../../Assets/01_sales_analysis.png)
