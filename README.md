@@ -1,4 +1,5 @@
-# PY_data_science — Portfolio Data Science
+# python-data-analysis-portfolio
+
 
 Portafolio end-to-end: **PostgreSQL Serverless (Neon) → Web Scraping → Análisis → Dashboard**. Datos de juguete de una Tienda Tech, pipeline reproducible y sin secretos en git.
 
